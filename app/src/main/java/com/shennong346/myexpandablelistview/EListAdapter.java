@@ -21,11 +21,13 @@ public class EListAdapter extends BaseExpandableListAdapter {
         this.groups = groups;
     }
 
+    @Override
     public Object getChild(int groupPosition, int childPosition) {
         groups.get(groupPosition).getChildItem(childPosition);
         return null;
     }
 
+    @Override
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
@@ -34,27 +36,33 @@ public class EListAdapter extends BaseExpandableListAdapter {
         return groups.get(groupPosition).getChildrenCount();
     }
 
+    @Override
     public Object getGroup(int groupPosition) {
         return groups.get(groupPosition);
     }
 
+    @Override
     public int getGroupCount() {
         return groups.size();
     }
 
+    @Override
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
+    @Override
     public boolean hasStableIds() {
         return false;
     }
 
+    @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
     }
 
     /** 設定 Group 資料 */
+    @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         Group group = (Group) getGroup(groupPosition);
@@ -71,6 +79,7 @@ public class EListAdapter extends BaseExpandableListAdapter {
     }
 
     /** 設定 Children 資料 */
+    @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
         Child child = groups.get(groupPosition).getChildItem(childPosition);
