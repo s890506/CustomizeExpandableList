@@ -2,14 +2,9 @@ package com.shennong346.myexpandablelistview;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -23,39 +18,30 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         groups = new ArrayList<Group>();
-        getJSONObject();
+        SetGroup();
         ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
         EListAdapter adapter = new EListAdapter(this, groups);
         listView.setAdapter(adapter);
     }
 
-    /** 解悉 JSON 字串 */
-    private void getJSONObject() {
-        String jsonStr = "{'CommunityUsersResult':[{'CommunityUsersList':[{'fullname':'a111','userid':11,'username':'a1'}"
-                + ",{'fullname':'b222','userid':12,'username':'b2'}],'id':1,'title':'人事部'},{'CommunityUsersList':[{'fullname':"
-                + "'c333','userid':13,'username':'c3'},{'fullname':'d444','userid':14,'username':'d4'},{'fullname':'e555','userid':"
-                + "15,'username':'e5'}],'id':2,'title':'開發部'},{'CommunityUsersList':[],'id':3,'title':'業務部'}]}";
+    private void SetGroup() {
 
-        try {
-            JSONObject CommunityUsersResultObj = new JSONObject(jsonStr);
-            JSONArray groupList = CommunityUsersResultObj.getJSONArray("CommunityUsersResult");
+        String[] item1 = {"AAA","BBB","CCC"};
+        String[][] item2 = {{"A1","A2"},
+                            {"B1","B2"},
+                            {"C1","C2"}};
 
-            for (int i = 0; i < groupList.length(); i++) {
-                JSONObject groupObj = (JSONObject) groupList.get(i);
-                Group group = new Group(groupObj.getString("id"), groupObj.getString("title"));
-                JSONArray childrenList = groupObj.getJSONArray("CommunityUsersList");
+        for(int i=0;i<item1.length;i++){
 
-                for (int j = 0; j < childrenList.length(); j++) {
-                    JSONObject childObj = (JSONObject) childrenList.get(j);
-                    Child child = new Child(childObj.getString("userid"), childObj.getString("fullname"), childObj.getString("username"));
-                    group.addChildrenItem(child);
-                }
+            Group group = new Group(i+"", item1[i]);
 
-                groups.add(group);
+            for(int j=0;j<item2[i].length;j++){
+                Child child = new Child(item2[i][j]);
+                group.addChildrenItem(child);
             }
-        } catch (JSONException e) {
-            Log.d("allenj", e.toString());
+            groups.add(group);
         }
+
     }
 
 

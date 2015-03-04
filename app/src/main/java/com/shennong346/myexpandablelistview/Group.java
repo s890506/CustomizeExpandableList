@@ -9,25 +9,11 @@ public class Group {
     private String id;
     private String title;
     private ArrayList<Child> children;
-    private boolean isChecked;
 
     public Group(String id, String title) {
         this.id = id;
         this.title = title;
         children = new ArrayList<Child>();
-        this.isChecked = false;
-    }
-
-    public void setChecked(boolean isChecked) {
-        this.isChecked = isChecked;
-    }
-
-    public void toggle() {
-        this.isChecked = !this.isChecked;
-    }
-
-    public boolean getChecked() {
-        return this.isChecked;
     }
 
     public String getId() {
